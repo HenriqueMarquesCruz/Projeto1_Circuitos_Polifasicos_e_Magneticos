@@ -22,5 +22,3 @@ Todos os cálculos foram implementados, não só a mão, mas também em **MATLAB
 - `codigos/` → scripts MATLAB com as simulações e análises
 - `graficos/` → figuras geradas (comparações, curvas de erro, etc.)
 - `Projeto1_HenriqueMarquesCruz__TheoFonsecaCruz_TiagoBragaRochaMello.pdf` → relatório completo do projeto
-   ```matlab
-   run('codigos/analise_transformador.m')
