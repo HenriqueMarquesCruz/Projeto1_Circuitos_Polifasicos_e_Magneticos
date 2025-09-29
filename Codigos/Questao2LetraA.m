@@ -32,14 +32,14 @@ Regula_med  = [3.94, 1.02, 0.71];
 PO_med      = [614, 67, 0];
 Pin_med     = [652, 106, 38];
 Pperdas_med = [38, 39, 38];
-efic_med    = [94.17, 87.72, 0];
+efic_med    = [94.17, 63.21, 0];
 
 % =================== Loop de simulações ===================
 for k = 1:length(ZL_list)
     ZL = ZL_list(k);
 
     % ---- Cálculos teóricos ---
-    Z_eq = Z1 + Z2p + Zm*3*ZL/(Zm + 3*ZL);
+    Z_eq = Z1 + Zm*(3*ZL+Z2p)/(Zm + 3*ZL + Z2p);
     
     V1 = 127*sqrt(3) * abs((Z1 + Z2p + 3*ZL) / (3*ZL));
     V2NL = V1*(1/sqrt(3)) * abs(Zm/(Zm+Z1));

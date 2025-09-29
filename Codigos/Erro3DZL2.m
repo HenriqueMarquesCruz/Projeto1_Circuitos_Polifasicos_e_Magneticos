@@ -29,7 +29,7 @@ Regula_med  = 1.02;
 PO_med      = 67;
 Pin_med     = 106;
 Pperdas_med = 39;
-efic_med    = 87.72;
+efic_med    = 63.21;
 
 % =================== Malha de variação |ZL| e fase ===================
 mag_range   = linspace(15,40,100);      % módulo
@@ -52,7 +52,7 @@ for i = 1:size(Mag,1)
         ZL = Mag(i,j) * exp(1j*Theta(i,j));   % forma polar
 
         % --- cálculos teóricos (igual ao seu snippet)
-        Z_eq = Z1 + Z2p + Zm*3*ZL/(Zm + 3*ZL);   % com ramo magnetizante em paralelo
+        Z_eq = Z1 + Zm*(3*ZL + Z2p)/(Zm + 3*ZL+ Z2p);   % com ramo magnetizante em paralelo
         
         V1  = 127*sqrt(3) * abs((Z1 + Z2p + 3*ZL) / (3*ZL));
         V2NL = V1*(1/sqrt(3)) * abs(Zm/(Zm+Z1));
@@ -78,7 +78,7 @@ for i = 1:size(Mag,1)
 
         % --- custo: norma Euclidiana do vetor de erros das 6 grandezas pedidas
         vet_erro = [ Erro_Pin(i,j), Erro_Po(i,j), Erro_Per(i,j), ...
-                     Erro_V1(i,j), Erro_I2(i,j)];
+                     Erro_V1(i,j), Erro_I2(i,j), Erro_Ef(i,j)];
         Custo(i,j) = norm(vet_erro);  % norma 2
     end
 end
@@ -109,12 +109,12 @@ fprintf('Custo (norma) = %.3f\n', min_custo);
 % =================== Plot 3D do custo e ponto ótimo ===================
 figure('Name','Custo (norma dos 6 erros) vs |ZL| e fase','NumberTitle','off');
 surf(mag_range, rad2deg(theta_range), Custo, ...
-     'FaceAlpha',0.7, ...     % transparência
+     'FaceAlpha',1.0, ...     % transparência
      'EdgeColor','none');     % sem grade "xadrez"
 xlabel('|Z_L| [\Omega]');
 ylabel('Fase de Z_L [graus]');
-zlabel('Custo (norma) [%]');
-title('Custo = ||[Erro_{Pin},Erro_{Pout},Erro_{Perdas},Erro_{V1},Erro_{I2},Erro_{Ef}]||_2');
+zlabel('Norma dos Erros [%]');
+title('Norma do Vetor de Erros');
 colorbar;
 colormap turbo;
 shading interp;
