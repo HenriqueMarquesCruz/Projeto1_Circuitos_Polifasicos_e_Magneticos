@@ -38,13 +38,14 @@ efic_med    = [94.17, 87.72, 0];
 for k = 1:length(ZL_list)
     ZL = ZL_list(k);
 
-    % ---- Cálculos teóricos ----
+    % ---- Cálculos teóricos ---
+    Z_eq = Z1 + Z2p + Zm*3*ZL/(Zm + 3*ZL);
+    
     V1 = 127*sqrt(3) * abs((Z1 + Z2p + 3*ZL) / (3*ZL));
     V2NL = V1*(1/sqrt(3)) * abs(Zm/(Zm+Z1));
     I2L = abs(127/ZL);
     Reg = abs((V2NL - V2L)/V2L) * 100;    % em %
     Po = V2L * (I2L)* cos(angle(ZL));
-    Z_eq = Z1 + Z2p + 3*ZL;
     Pin = (V1^2 / abs(Z_eq)) * cos(angle(Z_eq));
     Perdas = Pin - Po;
     Ef = (Po/Pin)*100;
